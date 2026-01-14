@@ -1,6 +1,6 @@
 # Totion - Terminal Notes Application
 
-A lightweight, terminal-based note-taking application built with Go. Totion provides a simple and efficient way to create, edit, and manage notes directly from your terminal.
+A lightweight, terminal-based note-taking application built with Go. Totion provides a simple and efficient way to create, edit, delete and manage notes directly from your terminal.
 
 ## Features
 
@@ -29,14 +29,25 @@ A lightweight, terminal-based note-taking application built with Go. Totion prov
 ## Installation
 
 ```bash
-git clone https://github.com/kartikeywariyal/totion.git
+git clone <your-repo-url>
 cd totion
-go install
+go mod tidy
+go build ./...
 ```
+
+## Configuration
+
+Create a `.env` file in the project root with the following variable:
+
+```
+NOTES_DIRECTORY=/absolute/path/to/your/notes/folder
+```
+
+You can also create `.env.example` with the same key as a template.
 
 ## Usage
 
-Run the application:
+Run the application in development:
 
 ```bash
 go run .
