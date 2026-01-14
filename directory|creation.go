@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/charmbracelet/bubbles/list"
 	"github.com/joho/godotenv"
 )
 
@@ -28,4 +29,25 @@ func createNewNoteFile(filePath string, m *Model) error {
 	}
 	m.fileDescriptor = file
 	return nil
+}
+
+// get List for Notes
+func getListOfNotes() ([]list.Item, error) {
+	files, err := os.ReadDir(directoryLocation)
+	if err != nil {
+		return nil, fmt.Errorf("error while reading directory %s: %w", directoryLocation, err)
+	}
+	var items []list.Item
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		}
+		Info, _ := file.Info()
+		items = append(items, item{
+			title: file.Name(),
+			desc:  Info.ModTime().Format("2006:01:02 15:04:05"),
+		})
+	}
+
+	return items, nil
 }

@@ -5,6 +5,7 @@ import (
 
 	"fmt"
 
+	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/bubbles/textarea"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -13,6 +14,7 @@ import (
 
 func (m Model) Init() tea.Cmd {
 	directoryLocation = getDirectoryLocation()
+
 	if directoryLocation == "" {
 		fmt.Println("Please set the NOTES_DIRECTORY environment variable in a .env file.")
 		return tea.Quit
@@ -27,7 +29,7 @@ func intialSetupTextInput() textinput.Model {
 	ti := textinput.New()
 	ti.Placeholder = "What you would like to call your note?"
 	ti.CharLimit = 200
-	ti.Width = 50
+	ti.Width = 100
 	ti.Focus()
 	ti.Cursor.Style = cursorStyle
 	ti.PromptStyle = cursorStyle
@@ -44,9 +46,16 @@ func intialTextArea() textarea.Model {
 func initialModel() Model {
 	ti := intialSetupTextInput()
 	ta := intialTextArea()
+	directoryLocation = getDirectoryLocation()
+	item, _ := getListOfNotes()
+	finalList := list.New(item, list.NewDefaultDelegate(), 0, 0)
+	finalList.SetSize(80, 20)
+	finalList.Title = "Your Notes📝"
+	finalList.Styles.Title = lipgloss.NewStyle().Foreground(lipgloss.Color("16")).Bold(true).Underline(true).Background(lipgloss.Color("254"))
 	return Model{
 		textInput:            ti,
 		createNewFileVisible: false,
 		textarea:             ta,
+		list:                 finalList,
 	}
 }

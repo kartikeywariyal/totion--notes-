@@ -10,6 +10,7 @@ require (
 require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/sahilm/fuzzy v0.1.1 // indirect
 )
 
 require (
