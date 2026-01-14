@@ -39,14 +39,9 @@ go install
 Run the application:
 
 ```bash
-go run main.go
+go run .
 ```
 
-Or if installed:
-
-```bash
-totion
-```
 
 ## Dependencies
 
