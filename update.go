@@ -23,10 +23,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					filepath := fmt.Sprintf("%s/%s.txt", directoryLocation, filename)
 					err := createNewNoteFile(filepath, &m)
 					if err != nil {
+						m.textInput.SetValue("")
 						fmt.Println("Error creating file:", err)
+					} else {
+						m.createNewFileVisible = false
+						m.textInput.SetValue("")
 					}
-					m.createNewFileVisible = false
-					m.textInput.SetValue("")
+
 				}
 			}
 		case "ctrl+l":
